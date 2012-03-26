@@ -5,10 +5,10 @@
  */
 public class Fork implements IFork {
 
-    private boolean use;
+    private boolean inUse;
 
     public Fork() {
-        this.use = false;
+        this.inUse = false;
     }
 
     /*
@@ -18,12 +18,9 @@ public class Fork implements IFork {
      */
     @Override
     public void acquire() {
-        if (use == false) {
-            use = true;
-        } else {
-
+        if (!inUse) {
+            inUse = true;
         }
-
     }
 
     /*
@@ -33,8 +30,14 @@ public class Fork implements IFork {
      */
     @Override
     public void release() {
-        use = false;
+        inUse = false;
+    }
 
+    /**
+     * @return the inUse
+     */
+    public boolean isInUse() {
+        return inUse;
     }
 
 }

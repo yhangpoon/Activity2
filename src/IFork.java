@@ -1,10 +1,7 @@
 /**
- * 
- */
-
-/**
- * @author Yin
- * 
+ * @author Greg Chambers
+ * @author Jacob Juby
+ * @author Yin Poon
  */
 public interface IFork {
     /*

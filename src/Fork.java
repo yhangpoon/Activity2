@@ -1,14 +1,13 @@
 /**
- * 
- */
-
-/**
- * @author Yin
- *
+ * @author Greg Chambers
+ * @author Jacob Juby
+ * @author Yin Poon
  */
 public class Fork implements IFork {
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see IFork#acquire()
      */
     @Override
@@ -17,7 +16,9 @@ public class Fork implements IFork {
 
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see IFork#release()
      */
     @Override

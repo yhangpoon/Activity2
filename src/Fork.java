@@ -5,25 +5,35 @@
  */
 public class Fork implements IFork {
 
+    private boolean use;
+
+    public Fork() {
+        this.use = false;
+    }
+
     /*
-     * (non-Javadoc)
+     * A philosopher (attempts to) acquire the fork.
      * 
      * @see IFork#acquire()
      */
     @Override
     public void acquire() {
-        // TODO Auto-generated method stub
+        if (use == false) {
+            use = true;
+        } else {
+
+        }
 
     }
 
     /*
-     * (non-Javadoc)
+     * A philosopher releases the fork.
      * 
      * @see IFork#release()
      */
     @Override
     public void release() {
-        // TODO Auto-generated method stub
+        use = false;
 
     }
 

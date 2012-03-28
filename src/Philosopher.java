@@ -64,6 +64,9 @@ public class Philosopher extends Thread {
 			// Sleep for a random amount of time.
 			if(this.thinkMillis != 0){
 				sleepAmount = rndGen.nextLong() % this.thinkMillis;
+				if(sleepAmount < 0){
+					sleepAmount *= -1;
+				}
 			} else {
 				sleepAmount = 0;
 			}
@@ -112,6 +115,9 @@ public class Philosopher extends Thread {
 			// Eating
 			if(this.eatMillis != 0){
 				eatAmount = rndGen.nextLong() % this.eatMillis;
+				if(sleepAmount < 0){
+					sleepAmount *= -1;
+				}
 			} else {
 				eatAmount = 0;
 			}

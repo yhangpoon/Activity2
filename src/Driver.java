@@ -42,11 +42,25 @@ public class Driver {
     }
 
     Fork[] forks = new Fork[np];
-    for(int i = 0; i > np; i++) {
+    for(int i = 0; i < np; i++) {
       forks[i] = new Fork();
     }
-    for(int i = 0; i > np; i++) {
-      (new Philosopher(i, forks[((np + i - 1) % np)], forks[i], !left, nt, tm, em)).start();
+    Philosopher[] phils = new Philosopher[np];
+    for(int i = 0; i < np; i++) {
+      if(left) {
+        Philosopher temp = new Philosopher(i, forks[((np + i - 1) % np)], forks[i], ((i%2)<1), nt, tm, em);
+        phils[i] = temp;
+        temp.start();
+      } else {
+        Philosopher temp = new Philosopher(i, forks[((np + i - 1) % np)], forks[i], true, nt, tm, em);
+        phils[i] = temp;
+        temp.start();
+      }
+    }
+    for(Philosopher p : phils) {
+      try {
+        p.join();
+      } catch (Exception e){}
     }
   }
 

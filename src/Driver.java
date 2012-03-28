@@ -29,7 +29,13 @@ public class Driver {
     } else if( args.length == 4 ) {
       try {
         np = Integer.parseInt(args[0]);
+        if(np == 0) {
+          np = 4;
+        }
         nt = Integer.parseInt(args[1]);
+        if(nt == 0) {
+          nt = 10;
+        }
         tm = Integer.parseInt(args[2]);
         em = Integer.parseInt(args[3]);
       } catch(Exception e) {}

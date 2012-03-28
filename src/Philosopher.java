@@ -12,14 +12,14 @@ import java.util.Random;
  */
 public class Philosopher extends Thread {
 	
-	private int id;
+	private final int id;
 	private Fork left;
 	private Fork right;
-	private boolean rHanded;
-	private int nTimes;
-	private long thinkMillis;
-	private long eatMillis;
-	private boolean infRun;
+	private final boolean rHanded;
+	private final int nTimes;
+	private final long thinkMillis;
+	private final long eatMillis;
+	private final boolean infRun;
 	
 	
 	/**
@@ -54,24 +54,76 @@ public class Philosopher extends Thread {
 	 * Override for the run method in the Thread class.
 	 */
 	public void run(){
-		int sleepAmount;
+		int runCount = this.nTimes;
+		long sleepAmount;
+		long eatAmount;
 		Random rndGen = new Random();
 		// Run while infinite run is set to true or if the counter hasn't
 		// hit zero yet.
-		while(infRun || (!(nTimes <= 0))){
+		while(infRun || (!(runCount <= 0))){
 			// Sleep for a random amount of time.
-			sleepAmount = rndGen.nextInt((int)this.thinkMillis);
+			sleepAmount = rndGen.nextLong() % this.thinkMillis;
 			System.out.println("Philosopher " + String.valueOf(this.id) + 
 					" thinks for " + String.valueOf(sleepAmount) + 
 					" time units.");
 			try {
-				Thread.sleep((long)sleepAmount);
+				Thread.sleep(sleepAmount);
 			} catch (InterruptedException e) {
 				// Do nothing
 			}
 			
 			// Acquire first fork
-			//TODO
+			if(this.rHanded){
+				System.out.println("Philosopher " + String.valueOf(this.id) +
+						" goes for right fork.");
+				this.right.acquire();
+				System.out.println("Philosopher " + String.valueOf(this.id) + 
+						" has right fork.");
+			} else {
+				System.out.println("Philosopher " + String.valueOf(this.id) +
+					" goes for left fork.");
+				this.left.acquire();
+				System.out.println("Philosopher " + String.valueOf(this.id) +
+					" has left fork.");
+			}
+			
+			// Let other threads acquire fork
+			Thread.yield();
+			
+			// Acquire second fork
+			if(this.rHanded){
+				System.out.println("Philosopher " + String.valueOf(this.id) +
+					" goes for left fork.");
+				this.left.acquire();
+				System.out.println("Philosopher " + String.valueOf(this.id) +
+					" has left fork.");
+			} else {
+				System.out.println("Philosopher " + String.valueOf(this.id) +
+					" goes for right fork.");
+				this.right.acquire();
+				System.out.println("Philosopher " + String.valueOf(this.id) + 
+					" has right fork.");
+			}
+			
+			// Eating
+			eatAmount = rndGen.nextLong() % this.eatMillis;
+			System.out.println("Philosopher " + String.valueOf(this.id) + 
+					" eats for " + String.valueOf(eatAmount) + 
+					" time units.");
+			try {
+				Thread.sleep(eatAmount);
+			} catch (InterruptedException e) {
+				// Do nothing
+			}
+			
+			// Release forks
+			this.right.release();
+			System.out.println("Philosopher " + String.valueOf(this.id) + 
+					" releases right fork.");
+			this.left.release();
+			System.out.println("Philosopher " + String.valueOf(this.id) + 
+				" releases left fork.");
+			
 		}
 		
 	} // end method run

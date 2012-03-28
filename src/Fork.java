@@ -10,6 +10,7 @@ public class Fork implements IFork {
 
     public Fork() {
         this.inUse = false;
+        this.inRun = true;
     }
 
     /*

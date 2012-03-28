@@ -45,12 +45,4 @@ public class Fork implements IFork {
         inUse = false;
         notifyAll();
     }
-
-    /**
-     * @return the inUse
-     */
-    public boolean isInUse() {
-        return inUse;
-    }
-
 }

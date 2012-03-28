@@ -62,7 +62,11 @@ public class Philosopher extends Thread {
 		// hit zero yet.
 		while(infRun || (!(runCount <= 0))){
 			// Sleep for a random amount of time.
-			sleepAmount = rndGen.nextLong() % this.thinkMillis;
+			if(this.thinkMillis != 0){
+				sleepAmount = rndGen.nextLong() % this.thinkMillis;
+			} else {
+				sleepAmount = 0;
+			}
 			System.out.println("Philosopher " + String.valueOf(this.id) + 
 					" thinks for " + String.valueOf(sleepAmount) + 
 					" time units.");
@@ -106,7 +110,11 @@ public class Philosopher extends Thread {
 			}
 			
 			// Eating
-			eatAmount = rndGen.nextLong() % this.eatMillis;
+			if(this.eatMillis != 0){
+				eatAmount = rndGen.nextLong() % this.eatMillis;
+			} else {
+				eatAmount = 0;
+			}
 			System.out.println("Philosopher " + String.valueOf(this.id) + 
 					" eats for " + String.valueOf(eatAmount) + 
 					" time units.");
@@ -124,7 +132,9 @@ public class Philosopher extends Thread {
 			System.out.println("Philosopher " + String.valueOf(this.id) + 
 				" releases left fork.");
 			
-		}
+			runCount--;
+			
+		} // end while
 		
 	} // end method run
 	

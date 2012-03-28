@@ -26,7 +26,9 @@ public class Fork implements IFork {
                 inRun = false;
             } else {
                 try {
-                    wait();
+                    synchronized(this) {
+                        wait();
+                    }
                 } catch (InterruptedException e) {
 
                 }
@@ -43,6 +45,8 @@ public class Fork implements IFork {
     @Override
     public void release() {
         inUse = false;
-        notifyAll();
+        synchronized(this) {
+            notifyAll();
+        }
     }
 }

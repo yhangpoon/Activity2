@@ -23,6 +23,7 @@ public class Fork implements IFork {
         while (inRun) {
             if (!inUse) {
                 inUse = true;
+                inRun = false;
             } else {
                 try {
                     wait();
@@ -30,7 +31,6 @@ public class Fork implements IFork {
 
                 }
             }
-            inRun = false;
         }
         inRun = true;
     }

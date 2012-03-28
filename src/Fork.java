@@ -6,9 +6,11 @@
 public class Fork implements IFork {
 
     private boolean inUse;
+    private boolean inRun;
 
     public Fork() {
         this.inUse = false;
+        this.inRun = true;
     }
 
     /*
@@ -18,9 +20,19 @@ public class Fork implements IFork {
      */
     @Override
     public void acquire() {
-        if (!inUse) {
-            inUse = true;
+        while (inRun) {
+            if (!inUse) {
+                inUse = true;
+                inRun = false;
+            } else {
+                try {
+                    wait();
+                } catch (InterruptedException e) {
+
+                }
+            }
         }
+        inRun = true;
     }
 
     /*
@@ -31,13 +43,6 @@ public class Fork implements IFork {
     @Override
     public void release() {
         inUse = false;
+        notifyAll();
     }
-
-    /**
-     * @return the inUse
-     */
-    public boolean isInUse() {
-        return inUse;
-    }
-
 }

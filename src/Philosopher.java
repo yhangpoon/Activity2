@@ -115,8 +115,8 @@ public class Philosopher extends Thread {
 			// Eating
 			if(this.eatMillis != 0){
 				eatAmount = rndGen.nextLong() % this.eatMillis;
-				if(sleepAmount < 0){
-					sleepAmount *= -1;
+				if(eatAmount < 0){
+					eatAmount *= -1;
 				}
 			} else {
 				eatAmount = 0;

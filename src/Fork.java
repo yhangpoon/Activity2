@@ -19,16 +19,16 @@ public class Fork implements IFork {
      * @see IFork#acquire()
      */
     @Override
-    public void acquire() {
+    public synchronized void acquire() {
         while (inRun) {
             if (!inUse) {
                 inUse = true;
                 inRun = false;
             } else {
                 try {
-                    synchronized(this) {
-                        wait();
-                    }
+
+                    wait();
+
                 } catch (InterruptedException e) {
 
                 }
@@ -43,10 +43,10 @@ public class Fork implements IFork {
      * @see IFork#release()
      */
     @Override
-    public void release() {
+    public synchronized void release() {
         inUse = false;
-        synchronized(this) {
-            notifyAll();
-        }
+
+        notifyAll();
+
     }
 }
